@@ -1,4 +1,4 @@
-package br.edu.ufcg.splab.designtests;
+package br.edu.ufcg.splab.designtestminer;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
