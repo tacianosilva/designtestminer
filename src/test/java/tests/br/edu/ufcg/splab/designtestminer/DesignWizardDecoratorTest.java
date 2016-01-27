@@ -1,4 +1,4 @@
-package tests.br.edu.ufcg.splab.designtests;
+package tests.br.edu.ufcg.splab.designtestminer;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -11,7 +11,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import br.edu.ufcg.splab.designtests.DesignWizardDecorator;
+import br.edu.ufcg.splab.designtestminer.DesignWizardDecorator;
 
 /**
  * Test class for {@link DesignWizardDecorator}.
