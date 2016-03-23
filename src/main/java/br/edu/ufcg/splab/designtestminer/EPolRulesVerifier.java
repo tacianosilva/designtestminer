@@ -39,7 +39,7 @@ public class EPolRulesVerifier {
     public static PrintWriter criarRelatorio(String reportName) throws IOException {
         FileWriter fw = criarArquivo(reportName);
         PrintWriter reportWriter = new PrintWriter(fw);
-        reportWriter.printf("%s,%s,%s\n", "project", "class", "report");
+        reportWriter.printf("%s,%s,%s,%s\n", "project", "class", "rule", "report");
 
         return reportWriter;
     }
@@ -95,6 +95,13 @@ public class EPolRulesVerifier {
 
             int numClasses = dwd.getDesignWizard().getAllClasses().size();
 
+            DesignWizard dw = dwd.getDesignWizard();
+
+            Set<ClassNode> anotacoes = dw.getAllAnnotations();
+            for (ClassNode classNode : anotacoes) {
+                System.out.println("Anotação: " + classNode.getName());
+            }
+
             // Model Classes from Project
             Set<ClassNode> classes = dwd.getClassesByAnnotation("javax.persistence.Entity");
             int numModelClasses = classes.size();
@@ -102,8 +109,9 @@ public class EPolRulesVerifier {
 
             List<AbstractDesignRule> regras = getRegras(dwd.getDesignWizard());
             int numFailClasses = 0;
-            boolean passedClass = true;
+
             for (ClassNode classNode : classes) {
+                boolean passedClass = true;
                 for (AbstractDesignRule rule : regras) {
                     rule.setClassNode(classNode);
                     String ruleName = rule.getName();
@@ -111,14 +119,13 @@ public class EPolRulesVerifier {
 
                     passedClass = passedClass && passed;
 
+                    System.out.println(">>>>>" + projeto + ", " + classNode.getClassName() + ", " + ruleName + ", " + passed);
                     System.out.println("Report Rule: " + ruleName);
                     System.out.println(rule.getReport());
 
-                    System.out.println(">>>>" + projeto + ", " + classNode.getClassName() + ", " + ruleName + ", " + passed);
-
                     gravarLinha(resultsWriter, projeto, classNode.getClassName(), ruleName, passed);
                     if (!passed) {
-                        reportWriter.printf("%s,%s,\n%s\n", projeto, classNode.getClassName(), rule.getReport());
+                        reportWriter.printf("%s,%s,%s,\n%s\n", projeto, classNode.getClassName(), ruleName, rule.getReport());
                     }
                 }
                 if (!passedClass) numFailClasses++;
