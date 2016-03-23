@@ -96,8 +96,9 @@ public class RulesVerifier {
 
             List<AbstractDesignRule> regras = getRegras(dwd.getDesignWizard());
             int numFailClasses = 0;
-            boolean passedClass = true;
+
             for (ClassNode classNode : classes) {
+                boolean passedClass = true;
                 for (AbstractDesignRule rule : regras) {
                     rule.setClassNode(classNode);
                     String ruleName = rule.getName();
