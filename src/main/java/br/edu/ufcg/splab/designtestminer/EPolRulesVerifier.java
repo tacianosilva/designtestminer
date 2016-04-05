@@ -102,6 +102,15 @@ public class EPolRulesVerifier {
                 System.out.println("Anotação: " + classNode.getName());
             }
 
+            ClassNode entity = dw.getClass("javax.persistence.Entity");
+            System.out.println("Entity: " + entity.getName());
+            System.out.println("Modifiers " + entity.getModifiers());
+
+            ClassNode caso = dw.getClass("br.gov.dpf.epol.pojo.caso.Caso");
+            System.out.println("Caso Entity: " + caso.getName());
+            System.out.println("Anotações: " + caso.getAnnotations().contains(entity));
+            System.out.println("Modifiers: " + caso.getModifiers());
+
             // Model Classes from Project
             Set<ClassNode> classes = dwd.getClassesByAnnotation("javax.persistence.Entity");
             int numModelClasses = classes.size();
@@ -146,7 +155,8 @@ public class EPolRulesVerifier {
     }
 
     private static String getClassesDirectory(String repo, String projeto) {
-        return "/target/classes";
+        return "/target/classes/";
+        //return "/target/classes/br/gov/dpf/epol/pojo/";
     }
 
     private static void gravarLinha(PrintWriter gravar, String projeto, String className, String ruleName,
