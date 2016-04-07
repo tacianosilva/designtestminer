@@ -1,15 +1,14 @@
 package tests.br.edu.ufcg.splab.designtestminer;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-
 import java.util.Set;
 
 import org.designwizard.api.DesignWizard;
 import org.designwizard.design.PackageNode;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
 import br.edu.ufcg.splab.designtestminer.DesignWizardDecorator;
 
@@ -17,6 +16,7 @@ import br.edu.ufcg.splab.designtestminer.DesignWizardDecorator;
  * Test class for {@link DesignWizardDecorator}.
  * @author Taciano de Morais Silva - tacianosilva@gmail.com
  */
+@Test
 public class DesignWizardDecoratorTest {
 
     /**
@@ -36,12 +36,19 @@ public class DesignWizardDecoratorTest {
      */
     String arquivoJar = "target/classes";
 
-    @Before
+    private SoftAssert softAssert;
+
+    @BeforeClass
     public void setUp() throws Exception {
         dwd = new DesignWizardDecorator(arquivoJar, projectName);
     }
 
-    @After
+    @BeforeMethod
+    public void startTest() {
+         softAssert = new SoftAssert();
+    }
+
+    @AfterClass
     public void tearDown() throws Exception {
         dw = null;
         dwd = null;
@@ -50,15 +57,16 @@ public class DesignWizardDecoratorTest {
     @Test
     public final void testNewDesignWizardDecorator() {
         dw = dwd.getDesignWizard();
-        assertNotNull("1", dw);
+        softAssert.assertNotNull(dw, "1");
 
         Set<PackageNode> packages = dw.getAllPackages();
-        assertEquals("2", 3, packages.size());
+        softAssert.assertEquals(packages.size(), 3, "2");
 
         for (PackageNode packageNode : packages) {
             System.out.println("package" + packageNode);
         }
 
-        assertNotNull("3", dwd);
+        softAssert.assertNotNull(dwd, "3");
+        softAssert.assertAll();
     }
 }
