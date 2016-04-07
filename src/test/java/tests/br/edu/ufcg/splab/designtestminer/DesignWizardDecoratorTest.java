@@ -57,16 +57,16 @@ public class DesignWizardDecoratorTest {
     @Test
     public final void testNewDesignWizardDecorator() {
         dw = dwd.getDesignWizard();
-        softAssert.assertNotNull(dw, "1");
+        softAssert.assertNotNull(dw, "test1");
 
         Set<PackageNode> packages = dw.getAllPackages();
-        softAssert.assertEquals(packages.size(), 3, "2");
+        softAssert.assertEquals(packages.size(), 1, "test2");
 
         for (PackageNode packageNode : packages) {
             System.out.println("package" + packageNode);
         }
 
-        softAssert.assertNotNull(dwd, "3");
+        softAssert.assertNotNull(dwd, "test3");
         softAssert.assertAll();
     }
 }
