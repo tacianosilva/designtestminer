@@ -26,12 +26,16 @@ public class DesignWizardDecorator {
         return dw;
     }
 
+    public String getProjectName() {
+        return this.projectName;
+    }
+
     public Set<ClassNode> getClassesByAnnotation(String annotationName) throws InexistentEntityException {
 
         Set<ClassNode> allClasses = dw.getAllClasses();
         ClassNode annotationNode = dw.getAnnotation(annotationName);
 
-        Set<ClassNode> classes = new HashSet<ClassNode>();
+        Set<ClassNode> classes = new HashSet<>();
 
         for (ClassNode classNode : allClasses) {
             if (hasAnnotation(classNode, annotationNode)) {
@@ -51,8 +55,7 @@ public class DesignWizardDecorator {
     }
 
     public Set<ClassNode> getAllAnnotations() {
-        Set<ClassNode> annotations = dw.getAllAnnotations();
-        return annotations;
+        return dw.getAllAnnotations();
     }
 
     public ClassNode getClass(String className) throws InexistentEntityException {

@@ -27,7 +27,7 @@ import br.edu.ufcg.splab.designtests.designrules.UseSetCollectionRule;
 public class EPolRulesVerifier {
 
     public static void main(String[] args) throws IOException, ClassNotFoundException, InexistentEntityException {
-        System.out.printf("\nConteúdo do arquivo projectsThatUseHibernate.txt\n\n");
+        System.out.printf("%nConteúdo do arquivo projectsThatUseHibernate.txt%n%n");
 
         String fileName = "scripts/epol_versions.txt";
         String fileResults = "scripts/tests_results_epol.txt";
@@ -39,7 +39,7 @@ public class EPolRulesVerifier {
     public static PrintWriter criarRelatorio(String reportName) throws IOException {
         FileWriter fw = criarArquivo(reportName);
         PrintWriter reportWriter = new PrintWriter(fw);
-        reportWriter.printf("%s,%s,%s,%s\n", "project", "class", "rule", "report");
+        reportWriter.printf("%s,%s,%s,%s%n", "project", "class", "rule", "report");
 
         return reportWriter;
     }
@@ -51,11 +51,11 @@ public class EPolRulesVerifier {
 
             FileWriter fw = criarArquivo(fileResults);
             PrintWriter resultsWriter = new PrintWriter(fw);
-            resultsWriter.printf("%s,%s,%s,%s\n", "project", "class", "rule", "result");
+            resultsWriter.printf("%s,%s,%s,%s%n", "project", "class", "rule", "result");
 
             FileWriter infoFW = criarArquivo(infoResults);
             PrintWriter infoWriter = new PrintWriter(infoFW);
-            infoWriter.printf("%s,%s,%s,%s\n", "project", "num classes", "num model classes", "num fail classes");
+            infoWriter.printf("%s,%s,%s,%s%n", "project", "num classes", "num model classes", "num fail classes");
 
             String linha = lerArq.readLine(); // lê a primeira linha
             // a variável "linha" recebe o valor "null" quando o processo
@@ -72,16 +72,16 @@ public class EPolRulesVerifier {
             fw.close();
             infoFW.close();
         } catch (IOException e) {
-            System.err.printf("Erro na abertura do arquivo: %s.\n", e.getMessage());
+            System.err.printf("Erro na abertura do arquivo: %s.%n", e.getMessage());
         }
     }
 
     public static void processarProjeto(String projeto, PrintWriter resultsWriter, PrintWriter infoWriter) {
         String[] split = projeto.split(":");
         String version = "epol-"+split[0];
-        String commit = split[1];
-        String dev = split[2];
-        String data = split[3];
+        //String commit = split[1];
+        //String dev = split[2];
+        //String data = split[3];
         String reposDir = "/home/taciano/dev/epol_versions/";
         String classDir = getClassesDirectory(reposDir, projeto);
 
@@ -161,12 +161,12 @@ public class EPolRulesVerifier {
 
     private static void gravarLinha(PrintWriter gravar, String projeto, String className, String ruleName,
             boolean checkResult) {
-        gravar.printf("%s,%s,%s,%s\n", projeto, className, ruleName, checkResult);
+        gravar.printf("%s,%s,%s,%s%n", projeto, className, ruleName, checkResult);
     }
 
     private static void gravarLinha(PrintWriter gravar, String projeto, int numClasses, int numModelClasses,
             int numFailClasses) {
-        gravar.printf("%s,%d,%d,%d\n", projeto, numClasses, numModelClasses, numFailClasses);
+        gravar.printf("%s,%d,%d,%d%n", projeto, numClasses, numModelClasses, numFailClasses);
     }
 
     private static List<AbstractDesignRule> getRegras(DesignWizard dw) {

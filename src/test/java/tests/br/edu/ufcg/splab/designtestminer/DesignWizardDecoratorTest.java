@@ -3,6 +3,7 @@ package tests.br.edu.ufcg.splab.designtestminer;
 import java.util.Set;
 
 import org.designwizard.api.DesignWizard;
+import org.designwizard.design.ClassNode;
 import org.designwizard.design.PackageNode;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -30,7 +31,7 @@ public class DesignWizardDecoratorTest {
     /**
      * Project name on the tests.
      */
-    String projectName = "desingtest";
+    String projectName = "desingtestminer";
     /**
      * Project jar file.
      */
@@ -67,6 +68,13 @@ public class DesignWizardDecoratorTest {
         }
 
         softAssert.assertNotNull(dwd, "test3");
+        softAssert.assertAll();
+    }
+
+    public void testAllAnnotations() {
+        Set<ClassNode> annotations = dwd.getAllAnnotations();
+        softAssert.assertNotNull(annotations.size());
+        softAssert.assertEquals(annotations.size(), 0);
         softAssert.assertAll();
     }
 }
