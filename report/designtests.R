@@ -1,7 +1,7 @@
 #Script R para gerar os Dados agragados
 
-results = read.csv('/home/taciano/dev/workspace/designtests/scripts/tests_results_sample.txt')
-results_star = read.csv('/home/taciano/dev/workspace/designtests/scripts/tests_results_starred.txt')
+results = read.csv('/home/taciano/dev/workspace/designtestminer/datasets/results/tests_results_sample.txt')
+results_star = read.csv('/home/taciano/dev/workspace/designtestminer/datasets/results/tests_results_starred.txt')
 
 results_rules = aggregate(results$rule, list(resultado = results$result, regra = results$rule), length)
 results_rules_total = aggregate(results$rule, list(resultado = results$rule), length)
@@ -68,7 +68,7 @@ require(lawstat)
 
 oneway.test(proporcao ~ tipo, data=total, na.action=na.omit, var.equal=FALSE)
 
-write.csv(results_proj_falhou, file = "/home/taciano/dev/workspace/designtests/scripts/results_proportions.txt", row.names=FALSE)
-write.csv(results_star_proj_falhou, file = "/home/taciano/dev/workspace/designtests/scripts/results_star_proportions.txt", row.names=FALSE)
-write.csv(results_rules_falhou, file = "/home/taciano/dev/workspace/designtests/scripts/results_rules_proportions.txt", row.names=FALSE)
-write.csv(results_star_rules_falhou, file = "/home/taciano/dev/workspace/designtests/scripts/results_star_rules_proportions.txt", row.names=FALSE)
+write.csv(results_proj_falhou, file = "/home/taciano/dev/workspace/designtestminer/datasets/analysis/results_proportions.txt", row.names=FALSE)
+write.csv(results_star_proj_falhou, file = "/home/taciano/dev/workspace/designtestminer/datasets/analysis/results_star_proportions.txt", row.names=FALSE)
+write.csv(results_rules_falhou, file = "/home/taciano/dev/workspace/designtestminer/datasets/analysis/results_rules_proportions.txt", row.names=FALSE)
+write.csv(results_star_rules_falhou, file = "/home/taciano/dev/workspace/designtestminer/datasets/analysis/results_star_rules_proportions.txt", row.names=FALSE)
