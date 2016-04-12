@@ -28,15 +28,15 @@ public class RulesVerifier {
     public static void main(String[] args) throws IOException, ClassNotFoundException, InexistentEntityException {
         System.out.printf("\nConteúdo do arquivo projectsThatUseHibernate.txt\n\n");
 
-        String fileName = "scripts/projects_sample_hibernate_2015-08-10.txt";
-        String fileResults = "scripts/tests_results_sample.txt";
-        String infoResults = "scripts/tests_info_sample.txt";
+        String fileName = "datasets/input/projects_sample_hibernate_2015-08-10.txt";
+        String fileResults = "datasets/results/tests_results_sample.txt";
+        String infoResults = "datasets/results/tests_info_sample.txt";
 
         processarArquivo(fileName, fileResults, infoResults);
 
-        fileName = "scripts/projects_starred_hibernate_2015-08-30.txt";
-        fileResults = "scripts/tests_results_starred.txt";
-        infoResults = "scripts/tests_info_starred.txt";
+        fileName = "datasets/input/projects_starred_hibernate_2015-08-30.txt";
+        fileResults = "datasets/results/tests_results_starred.txt";
+        infoResults = "datasets/results/tests_info_starred.txt";
 
         processarArquivo(fileName, fileResults, infoResults);
 
@@ -84,7 +84,7 @@ public class RulesVerifier {
         String projectDir = reposDir + projeto + classDir;
 
         try {
-            System.out.println("Diretório do Projeto: " + projectDir);
+            System.out.println("\nDiretório do Projeto: " + projectDir);
             DesignWizardDecorator dwd = new DesignWizardDecorator(projectDir, projectName);
 
             int numClasses = dwd.getDesignWizard().getAllClasses().size();
@@ -134,6 +134,12 @@ public class RulesVerifier {
         //TODO Detectar se o projeto é Maven ou Gradle. Detectar Diretório onde ficam os .class.
         if ("Raysmond/SpringBlog".equals(projeto)) {
             return "/build/classes/main/com/raysmond/blog/models";
+        }
+        if ("DanielMichalski/spring-web-rss-channels/rss-core".equals(projeto)) {
+            return "/target/classes/pl/dmichalski/rss/core/entity";
+        }
+        if ("cliffmaury/angular-spring4-stack".equals(projeto)) {
+            return "/target/classes/fr/valtech/angularspring/app/domain";
         }
         return "/target/classes";
     }
