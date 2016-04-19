@@ -52,21 +52,46 @@ results_star_proj_falhou["proporcao"] <- results_star_proj_falhou$falhou / resul
 amostra1 = results_proj_falhou["projeto"]
 amostra2 = results_star_proj_falhou["projeto"]
 
+#Totais
+violacoes.random_totalDeFalhas = sum(results_proj_falhou$falhou)
+violacoes.random_totalDeAcertos = sum(results_projects.passou$x)
+violacoes.random_totalDeTestes = sum(results_proj_falhou$total)
+violacoes.random_MediaDeFalhasProjects = mean(results_proj_falhou$proporcao)
+violacoes.random_MediaDeFalhasRules = mean(results_rules_falhou$proporcao)
+
+violacoes.stared_totalDeFalhas = sum(results_star_proj_falhou$falhou)
+violacoes.stared_totalDeAcertos = sum(results_star_projects.passou$x)
+violacoes.stared_totalDeTestes = sum(results_star_proj_falhou$total)
+violacoes.stared_MediaDeFalhas = mean(results_star_proj_falhou$proporcao)
+
 amostra1["proporcao"] <- results_proj_falhou["proporcao"]
-amostra1["tipo"] <- "aleatoria"
+amostra1["tipo"] <- "random"
 
 amostra2["proporcao"] <- results_star_proj_falhou["proporcao"]
-amostra2["tipo"] <- "starred"
+amostra2["tipo"] <- "stared"
 
 falhas <- rbind(amostra1, amostra2)
 
-levene.test(falhas$proporcao, falhas$tipo, location = "median")
+library(lawstat)
 
-boxplot(amostra1$proporcao, amostra2$proporcao)
+# Teste de homocedastidade (Homogeneidade da variância)
+levene.test(falhas$proporcao, falhas$tipo)
 
-require(lawstat)
+# Testes de Normalidade
+shapiro.test(amostra1$proporcao)
+shapiro.test(amostra2$proporcao)
 
-oneway.test(proporcao ~ tipo, data=total, na.action=na.omit, var.equal=FALSE)
+# Teste da Igualdade das médias
+t.test(falhas$proporcao ~ falhas$tipo, paired=TRUE, var.equal=TRUE)
+
+# Gráfico com as médias dos projetos
+boxplot(falhas$proporcao ~ falhas$tipo, data=falhas, main="Failure proportions of Projects", xlab="Samples", ylab="Proportions")
+
+# Testa se duas ou mais amostras de distribuições normais têm as mesmas médias.
+# As variâncias não são necessariamente assumida como sendo igual.
+oneway.test(falhas$proporcao ~ falhas$tipo, data=falhas, na.action=na.omit, var.equal=TRUE)
+
+anova(falhas$proporcao ~ falhas$tipo, data=falhas)
 
 write.csv(results_proj_falhou, file = "/home/taciano/dev/workspace/designtestminer/datasets/analysis/results_proportions.txt", row.names=FALSE)
 write.csv(results_star_proj_falhou, file = "/home/taciano/dev/workspace/designtestminer/datasets/analysis/results_star_proportions.txt", row.names=FALSE)
