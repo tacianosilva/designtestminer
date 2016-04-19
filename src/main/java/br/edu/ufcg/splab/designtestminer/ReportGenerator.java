@@ -96,7 +96,7 @@ public class ReportGenerator {
         //String gitUser = split[0];
         String projectName = split[1];
         String reposDir = "/home/taciano/dev/repos/";
-        String classDir = getClassesDirectory(reposDir, projeto);
+        String classDir = getClassesDirectory(projeto);
 
         String projectDir = reposDir + projeto + classDir;
 
@@ -126,7 +126,7 @@ public class ReportGenerator {
 
                     passedClass = passedClass && passed;
 
-                    System.out.println(">>>>>" + projeto + ", " + classNode.getClassName() + ", " + result.getRuleName() + ", " + passed);
+                    logger.debug(">>>>>" + projeto + ", " + classNode.getClassName() + ", " + result.getRuleName() + ", " + passed);
 
                     gravarLinha(resultsWriter, projeto, result);
 
@@ -137,22 +137,21 @@ public class ReportGenerator {
                 if (!passedClass) numFailClasses++;
             }
 
+            // TODO Listar as classes que falharam
+            //verifier.getFailClasses();
+            // TODO Calcular o número de classes que falhou
+            //verifier.getNumFailClasses();
 
-            System.out.println(">>>>" + projeto + ", " + numClasses + ", " + numModelClasses + ", " + numFailClasses);
+
+            logger.debug(">>>>" + projeto + ", " + numClasses + ", " + numModelClasses + ", " + numFailClasses);
             gravarLinha(infoWriter, projeto, numClasses, numModelClasses, numFailClasses);
 
-        } catch (IOException ioe) {
-            logger.error(ioe.getMessage(), ioe);
-        } catch (ClassNotFoundException ce) {
-            logger.error(ce.getMessage(), ce);
-        } catch (InexistentEntityException e) {
-            logger.error(e.getMessage(), e);
-        } catch (ArrayIndexOutOfBoundsException e) {
+        } catch (Exception e) {
             logger.error(e.getMessage(), e);
         }
     }
 
-    private static String getClassesDirectory(String repo, String projeto) {
+    private static String getClassesDirectory(String projeto) {
         //TODO Detectar se o projeto é Maven ou Gradle. Detectar Diretório onde ficam os .class.
         if ("Raysmond/SpringBlog".equals(projeto)) {
             return "/build/classes/main/com/raysmond/blog/models";
@@ -171,7 +170,7 @@ public class ReportGenerator {
     }
 
     private static void gravarLinhaRelatorio(PrintWriter reportWriter, String projeto, RuleResult result) {
-        reportWriter.printf("%s,%s,%s,\n%s%n",
+        reportWriter.printf("%s,%s,%s,%n%s%n",
                 projeto, result.getClassName(), result.getRuleName(), result.getRuleReport());
     }
 
