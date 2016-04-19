@@ -1,17 +1,11 @@
 package br.edu.ufcg.splab.designtestminer;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 
 import org.designwizard.api.DesignWizard;
 import org.designwizard.design.ClassNode;
-import org.designwizard.exception.InexistentEntityException;
 
 import br.edu.ufcg.splab.designtests.designrules.AbstractDesignRule;
 import br.edu.ufcg.splab.designtests.designrules.HashCodeAndEqualsNotUseIdentifierPropertyRule;
@@ -25,137 +19,33 @@ import br.edu.ufcg.splab.designtests.designrules.UseSetCollectionRule;
 
 public class RulesVerifier {
 
-    public static void main(String[] args) throws IOException, ClassNotFoundException, InexistentEntityException {
-        System.out.printf("\nConteúdo do arquivo projectsThatUseHibernate.txt\n\n");
+    private DesignWizardDecorator dwd;
 
-        String fileName = "datasets/input/projects_sample_hibernate_2015-08-10.txt";
-        String fileResults = "datasets/results/tests_results_sample.txt";
-        String infoResults = "datasets/results/tests_info_sample.txt";
-
-        processarArquivo(fileName, fileResults, infoResults);
-
-        fileName = "datasets/input/projects_starred_hibernate_2015-08-30.txt";
-        fileResults = "datasets/results/tests_results_starred.txt";
-        infoResults = "datasets/results/tests_info_starred.txt";
-
-        processarArquivo(fileName, fileResults, infoResults);
-
+    public RulesVerifier(DesignWizardDecorator dwd) {
+        this.dwd = dwd;
     }
 
-    public static void processarArquivo(String fileProjects, String fileResults, String infoResults) {
-        try {
-            FileReader arq = new FileReader(fileProjects);
-            BufferedReader lerArq = new BufferedReader(arq);
+    public RuleResult checkRule(AbstractDesignRule rule, ClassNode classNode) {
+        rule.setClassNode(classNode);
+        return createRuleResult(rule, classNode);
+    }
 
-            FileWriter fw = criarArquivo(fileResults);
-            PrintWriter resultsWriter = new PrintWriter(fw);
-            resultsWriter.printf("%s,%s,%s,%s\n", "project", "class", "rule", "result");
+    public List<RuleResult> checkRules(ClassNode classNode) {
+        List<RuleResult> results = new LinkedList<>();
 
-            FileWriter infoFW = criarArquivo(infoResults);
-            PrintWriter infoWriter = new PrintWriter(infoFW);
-            infoWriter.printf("%s,%s,%s,%s\n", "project", "num classes", "num model classes", "num fail classes");
-
-            String linha = lerArq.readLine(); // lê a primeira linha
-            // a variável "linha" recebe o valor "null" quando o processo
-            // de repetição atingir o final do arquivo texto
-            while (linha != null) {
-                System.out.printf("%s\n", linha);
-
-                processarProjeto(linha, resultsWriter, infoWriter);
-
-                linha = lerArq.readLine(); // lê da segunda até a última linha
-            }
-
-            arq.close();
-            fw.close();
-            infoFW.close();
-        } catch (IOException e) {
-            System.err.printf("Erro na abertura do arquivo: %s.\n", e.getMessage());
+        for (AbstractDesignRule rule : getRules()) {
+            results.add(checkRule(rule, classNode));
         }
+        return results;
     }
 
-    public static void processarProjeto(String projeto, PrintWriter resultsWriter, PrintWriter infoWriter) {
-        String[] split = projeto.split("/");
-        //String gitUser = split[0];
-        String projectName = split[1];
-        String reposDir = "/home/taciano/dev/repos/";
-        String classDir = getClassesDirectory(reposDir, projeto);
-
-        String projectDir = reposDir + projeto + classDir;
-
-        try {
-            System.out.println("\nDiretório do Projeto: " + projectDir);
-            DesignWizardDecorator dwd = new DesignWizardDecorator(projectDir, projectName);
-
-            int numClasses = dwd.getDesignWizard().getAllClasses().size();
-
-            // Model Classes from Project
-            Set<ClassNode> classes = dwd.getClassesByAnnotation("javax.persistence.Entity");
-            int numModelClasses = classes.size();
-
-
-            List<AbstractDesignRule> regras = getRegras(dwd.getDesignWizard());
-            int numFailClasses = 0;
-
-            for (ClassNode classNode : classes) {
-                boolean passedClass = true;
-                for (AbstractDesignRule rule : regras) {
-                    rule.setClassNode(classNode);
-                    String ruleName = rule.getName();
-                    boolean passed = rule.checkRule();
-
-                    passedClass = passedClass && passed;
-
-                    System.out.println("Report Rule: " + ruleName);
-                    System.out.println(rule.getReport());
-
-                    System.out.println(">>>>" + projeto + ", " + classNode.getClassName() + ", " + ruleName + ", " + passed);
-
-                    gravarLinha(resultsWriter, projeto, classNode.getClassName(), ruleName, passed);
-                }
-                if (!passedClass) numFailClasses++;
-            }
-
-            System.out.println(">>>>" + projeto + ", " + numClasses + ", " + numModelClasses + ", " + numFailClasses);
-            gravarLinha(infoWriter, projeto, numClasses, numModelClasses, numFailClasses);
-
-        } catch (IOException ioe) {
-            ioe.printStackTrace();
-        } catch (ClassNotFoundException ce) {
-            ce.printStackTrace();
-        } catch (InexistentEntityException e) {
-            e.printStackTrace();
-        } catch (ArrayIndexOutOfBoundsException e) {
-            e.printStackTrace();
-        }
+    private RuleResult createRuleResult(AbstractDesignRule rule, ClassNode classNode) {
+        return new RuleResult(rule.getName(), classNode.getName(), rule.checkRule(), rule.getReport());
     }
 
-    private static String getClassesDirectory(String repo, String projeto) {
-        //TODO Detectar se o projeto é Maven ou Gradle. Detectar Diretório onde ficam os .class.
-        if ("Raysmond/SpringBlog".equals(projeto)) {
-            return "/build/classes/main/com/raysmond/blog/models";
-        }
-        if ("DanielMichalski/spring-web-rss-channels/rss-core".equals(projeto)) {
-            return "/target/classes/pl/dmichalski/rss/core/entity";
-        }
-        if ("cliffmaury/angular-spring4-stack".equals(projeto)) {
-            return "/target/classes/fr/valtech/angularspring/app/domain";
-        }
-        return "/target/classes";
-    }
-
-    private static void gravarLinha(PrintWriter gravar, String projeto, String className, String ruleName,
-            boolean checkResult) {
-        gravar.printf("%s,%s,%s,%s\n", projeto, className, ruleName, checkResult);
-    }
-
-    private static void gravarLinha(PrintWriter gravar, String projeto, int numClasses, int numModelClasses,
-            int numFailClasses) {
-        gravar.printf("%s,%d,%d,%d\n", projeto, numClasses, numModelClasses, numFailClasses);
-    }
-
-    private static List<AbstractDesignRule> getRegras(DesignWizard dw) {
+    public List<AbstractDesignRule> getRules() {
         List<AbstractDesignRule> regras = new ArrayList<AbstractDesignRule>();
+        DesignWizard dw = dwd.getDesignWizard();
 
         //Regras extraídas do manual Hibernate
         AbstractDesignRule rule1 = new NoArgumentConstructorRule(dw);
@@ -181,10 +71,5 @@ public class RulesVerifier {
         regras.add(rule8);
 
         return regras;
-    }
-
-    public static FileWriter criarArquivo(String fileResults) throws IOException {
-        FileWriter arq = new FileWriter(fileResults);
-        return arq;
     }
 }
