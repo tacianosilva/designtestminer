@@ -4,7 +4,7 @@ This project contains experiments with design tests using DesignWizard API. This
 
 ### Continuos Integration with [Travis](https://travis-ci.org)
 
-[![Build Status](https://travis-ci.org/tacianosilva/designtests.svg)](https://travis-ci.org/tacianosilva/designtests)
+[![Build Status](https://travis-ci.org/tacianosilva/designtestminer.svg)](https://travis-ci.org/tacianosilva/designtestminer)
 
 ### Instructions to Eclipse users
 
