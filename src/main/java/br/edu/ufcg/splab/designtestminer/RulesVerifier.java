@@ -3,6 +3,7 @@ package br.edu.ufcg.splab.designtestminer;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 import org.designwizard.api.DesignWizard;
 import org.designwizard.design.ClassNode;
@@ -20,6 +21,7 @@ import br.edu.ufcg.splab.designtests.designrules.UseSetCollectionRule;
 public class RulesVerifier {
 
     private DesignWizardDecorator dwd;
+    private Set<ClassNode> failClasses;
 
     public RulesVerifier(DesignWizardDecorator dwd) {
         this.dwd = dwd;
@@ -32,11 +34,20 @@ public class RulesVerifier {
 
     public List<RuleResult> checkRules(ClassNode classNode) {
         List<RuleResult> results = new LinkedList<>();
+        RuleResult result = null;
 
         for (AbstractDesignRule rule : getRules()) {
-            results.add(checkRule(rule, classNode));
+            result = checkRule(rule, classNode);
+            if (!result.getResult()) {
+                failClasses.add(classNode);
+            }
+            results.add(result);
         }
         return results;
+    }
+
+    public Set<ClassNode> getFailClasses() {
+        return this.failClasses;
     }
 
     private RuleResult createRuleResult(AbstractDesignRule rule, ClassNode classNode) {

@@ -13,6 +13,11 @@
         <system>GitHub Issues</system>
     </issueManagement>
 
+    <ciManagement>
+        <system>travis-ci</system>
+        <url>https://travis-ci.org/tacianosilva/designtestminer</url>
+    </ciManagement>
+
     <licenses>
         <license>
             <name>MIT License</name>
@@ -33,6 +38,7 @@
             <name>Taciano Morais Silva</name>
             <url>https://github.com/tacianosilva</url>
             <id>tacianosilva</id>
+            <timezone>-3</timezone>
         </developer>
     </developers>
 
