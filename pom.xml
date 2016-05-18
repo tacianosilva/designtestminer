@@ -21,14 +21,14 @@
     <licenses>
         <license>
             <name>MIT License</name>
-            <url>https://opensource.org/licenses/mit-license.php</url>
+            <url>https://opensource.org/licenses/MIT</url>
             <distribution>repo</distribution>
         </license>
     </licenses>
 
     <scm>
         <url>https://github.com/tacianosilva/designtestminer</url>
-        <connection>scm:git:git://github.com/tacianosilva/designtestminer.git</connection>
+        <connection>scm:git:https://github.com/tacianosilva/designtestminer.git</connection>
         <developerConnection>scm:git:git@github.com:tacianosilva/designtestminer.git</developerConnection>
     </scm>
 
@@ -149,7 +149,7 @@
                         <manifest>
                             <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
                             <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
-                                                        <mainClass>br.edu.ufcg.splab.designtestminer.RulesVerifier</mainClass>
+                            <mainClass>br.edu.ufcg.splab.designtestminer.RulesVerifier</mainClass>
                         </manifest>
                         <manifestEntries>
                             <artifactId>${project.artifactId}</artifactId>
@@ -207,12 +207,12 @@
                             <groupId>org.codehaus.mojo</groupId>
                             <artifactId>cobertura-maven-plugin</artifactId>
                             <version>2.7</version>
-                            <configuration>
+                            <!-- configuration>
                                 <formats>
                                     <format>html</format>
                                     <format>xml</format>
                                 </formats>
-                            </configuration>
+                            </configuration -->
                         </plugin>
                         <plugin>
                             <groupId>org.apache.maven.plugins</groupId>
@@ -279,9 +279,7 @@
                 <version>2.12</version>
                 <configuration>
                     <includeOpenIssues>true</includeOpenIssues>
-                    <issueLinkTemplatePerSystem>
-                        <default>https://github.com/tacianosilva/designtestminer/issues/%ISSUE%</default>
-                    </issueLinkTemplatePerSystem>
+                    <onlyMilestoneIssues>false</onlyMilestoneIssues>
                 </configuration>
                 <reportSets>
                     <reportSet>
