@@ -3,10 +3,6 @@ sudo: false
 install: true
 jdk:
   - oraclejdk8
-script: ./travis.sh
-
-before_script:
-  - rm -rf $HOME/.m2/repository/org/sonarsource/sonarqube
 cache:
   directories:
     - $HOME/.m2/repository
