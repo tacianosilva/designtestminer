@@ -38,14 +38,14 @@ public class DesignWizardDecorator {
         Set<ClassNode> classes = new HashSet<>();
 
         for (ClassNode classNode : allClasses) {
-            if (hasAnnotation(classNode, annotationNode)) {
+            if (isAnnotated(classNode, annotationNode)) {
                 classes.add(classNode);
             }
         }
         return classes;
     }
 
-    public Boolean hasAnnotation(ClassNode aClass, ClassNode annotation) {
+    private Boolean isAnnotated(ClassNode aClass, ClassNode annotation) {
         Set<ClassNode> annotations = aClass.getAnnotations();
 
         if (annotations.contains(annotation)) {

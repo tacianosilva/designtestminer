@@ -76,7 +76,7 @@ public class ReportGenerator {
             // a variável "linha" recebe o valor "null" quando o processo
             // de repetição atingir o final do arquivo texto
             while (linha != null) {
-                System.out.printf("%s%n", linha);
+                logger.info("Processando projeto: " + linha);
 
                 processarProjeto(linha, resultsWriter, infoWriter);
 
@@ -101,7 +101,7 @@ public class ReportGenerator {
         String projectDir = reposDir + projeto + classDir;
 
         try {
-            System.out.println("Diretório do Projeto: " + projectDir);
+            logger.info("Diretório do Projeto: " + projectDir);
             DesignWizardDecorator dwd = new DesignWizardDecorator(projectDir, projectName);
             RulesVerifier verifier = new RulesVerifier(dwd);
 

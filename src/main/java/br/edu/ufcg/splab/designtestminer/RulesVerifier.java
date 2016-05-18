@@ -34,10 +34,8 @@ public class RulesVerifier {
 
     public List<RuleResult> checkRules(ClassNode classNode) {
         List<RuleResult> results = new LinkedList<>();
-        RuleResult result = null;
-
         for (AbstractDesignRule rule : getRules()) {
-            result = checkRule(rule, classNode);
+            RuleResult result = checkRule(rule, classNode);
             if (!result.getResult()) {
                 failClasses.add(classNode);
             }
@@ -54,8 +52,12 @@ public class RulesVerifier {
         return new RuleResult(rule.getName(), classNode.getName(), rule.checkRule(), rule.getReport());
     }
 
+    /**
+     * Returns a list of the Design Rules.
+     * @return A list of the Design Rules.
+     */
     public List<AbstractDesignRule> getRules() {
-        List<AbstractDesignRule> regras = new ArrayList<AbstractDesignRule>();
+        List<AbstractDesignRule> regras = new ArrayList<>();
         DesignWizard dw = dwd.getDesignWizard();
 
         //Regras extraídas do manual Hibernate
