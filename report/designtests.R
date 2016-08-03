@@ -6,9 +6,11 @@ results_star = read.csv('/home/taciano/dev/workspace/designtestminer/datasets/re
 results_rules = aggregate(results$rule, list(resultado = results$result, regra = results$rule), length)
 results_rules_total = aggregate(results$rule, list(resultado = results$rule), length)
 colnames(results_rules_total) <- c("regra", "total")
+
 results_rules.falhou <- results_rules[which(results_rules$resultado == 'false'),]
 results_rules.falhou["resultado"] <- NULL
 colnames(results_rules.falhou) <- c("regra", "falhou")
+
 results_rules_falhou = merge(results_rules_total, results_rules.falhou, all.x=TRUE, incomparables = NULL)
 results_rules_falhou[is.na(results_rules_falhou)] <- 0
 results_rules_falhou["proporcao"] <- results_rules_falhou$falhou / results_rules_falhou$total
@@ -16,9 +18,11 @@ results_rules_falhou["proporcao"] <- results_rules_falhou$falhou / results_rules
 results_star_rules = aggregate(results_star$rule, list(resultado = results_star$result, regra = results_star$rule), length)
 results_star_rules_total = aggregate(results_star$rule, list(resultado = results_star$rule), length)
 colnames(results_star_rules_total) <- c("regra", "total")
+
 results_star_rules.falhou <- results_star_rules[which(results_star_rules$resultado == 'false'),]
 results_star_rules.falhou["resultado"] <- NULL
 colnames(results_star_rules.falhou) <- c("regra", "falhou")
+
 results_star_rules_falhou = merge(results_star_rules_total, results_star_rules.falhou, all.x=TRUE, incomparables = NULL)
 results_star_rules_falhou[is.na(results_star_rules_falhou)] <- 0
 results_star_rules_falhou["proporcao"] <- results_star_rules_falhou$falhou / results_star_rules_falhou$total
@@ -49,6 +53,8 @@ results_star_proj_falhou = merge(results_star_total, results_star_projects.falho
 results_star_proj_falhou[is.na(results_star_proj_falhou)] <- 0
 results_star_proj_falhou["proporcao"] <- results_star_proj_falhou$falhou / results_star_proj_falhou$total
 
+#Resultados de proporções de falhas por tipo de amostra
+
 amostra1 = results_proj_falhou["projeto"]
 amostra2 = results_star_proj_falhou["projeto"]
 
@@ -57,6 +63,7 @@ violacoes.random_totalDeFalhas = sum(results_proj_falhou$falhou)
 violacoes.random_totalDeAcertos = sum(results_projects.passou$x)
 violacoes.random_totalDeTestes = sum(results_proj_falhou$total)
 violacoes.random_MediaDeFalhasProjects = mean(results_proj_falhou$proporcao)
+
 violacoes.random_MediaDeFalhasRules = mean(results_rules_falhou$proporcao)
 
 violacoes.stared_totalDeFalhas = sum(results_star_proj_falhou$falhou)
