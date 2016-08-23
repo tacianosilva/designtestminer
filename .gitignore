@@ -4,3 +4,5 @@
 /scripts/repos/
 /.travis.yml~
 /test-output/
+*/*.RData
+*/*.Rhistory

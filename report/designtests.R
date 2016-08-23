@@ -89,7 +89,7 @@ shapiro.test(amostra1$proporcao)
 shapiro.test(amostra2$proporcao)
 
 # Teste da Igualdade das médias
-t.test(falhas$proporcao ~ falhas$tipo, paired=TRUE, var.equal=TRUE)
+t.test(falhas$proporcao ~ falhas$tipo, paired=FALSE, var.equal=TRUE)
 
 # Gráfico com as médias dos projetos
 boxplot(falhas$proporcao ~ falhas$tipo, data=falhas, main="Failure proportions of Projects", xlab="Samples", ylab="Proportions")
