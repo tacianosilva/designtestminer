@@ -1,7 +1,7 @@
 #Script R para gerar os Dados agragados
 
-results_random = read.csv('/home/taciano/dev/workspace/designtestminer/datasets/results/tests_results_sample.txt')
-results_star = read.csv('/home/taciano/dev/workspace/designtestminer/datasets/results/tests_results_starred.txt')
+results_random = read.csv('/local_home/tacianosilva/workspace/designtestminer/datasets/results/tests_results_sample.txt')
+results_star = read.csv('/local_home/tacianosilva/workspace/designtestminer/datasets/results/tests_results_starred.txt')
 
 # Número de testes por Projeto
 testsByProj_random = aggregate(results_random$class, list(projeto = results_random$project), length)
@@ -97,7 +97,7 @@ sumario_random = merge(sumario_random, failsR8, all.x=TRUE, incomparables = NULL
 
 sumario_random[is.na(sumario_random)] <- 0
 
-write.csv(sumario_random, file = "/home/taciano/dev/workspace/designtestminer/datasets/analysis/sumario_random.csv", row.names=TRUE)
+write.csv(sumario_random, file = "/local_home/tacianosilva/workspace/designtestminer/datasets/analysis/sumario_random.csv", row.names=TRUE)
 
 # Amostra de Projetos Estrelados
 results_star_projects = aggregate(results_star$project, list(resultado = results_star$result, projeto = results_star$project), length)
@@ -196,7 +196,7 @@ sumario_star = merge(sumario_star, failsR8_star, all.x=TRUE, incomparables = NUL
 
 sumario_star[is.na(sumario_star)] <- 0
 
-write.csv(sumario_star, file = "/home/taciano/dev/workspace/designtestminer/datasets/analysis/sumario_star.csv", row.names=TRUE)
+write.csv(sumario_star, file = "/local_home/tacianosilva/workspace/designtestminer/datasets/analysis/sumario_star.csv", row.names=TRUE)
 
 # Agregados do Sumário - Amostra Randômica e Amostra Estrelada
 
