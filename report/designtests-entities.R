@@ -62,3 +62,4 @@ results_entities_starred_falhou["proporcao"] <- results_entities_starred_falhou$
 
 # Proporção Média de Entidades com Falhas
 media_star_2 = mean(results_entities_starred_falhou$proporcao)
+
