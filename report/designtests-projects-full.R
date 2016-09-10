@@ -95,6 +95,20 @@ sumario_full = merge(sumario_full, failsR8, all.x=TRUE, incomparables = NULL)
 
 sumario_full[is.na(sumario_full)] <- 0
 
+cor.test(sumario_full$R2, sumario_full$R4, method="spearman")
+cor.test(sumario_full$R2, sumario_full$R6, method="spearman")
+cor.test(sumario_full$R2, sumario_full$R7, method="spearman")
+cor.test(sumario_full$R2, sumario_full$R8, method="spearman")
+
+cor.test(sumario_full$R4, sumario_full$R6, method="spearman")
+cor.test(sumario_full$R4, sumario_full$R7, method="spearman")
+cor.test(sumario_full$R4, sumario_full$R8, method="spearman")
+
+cor.test(sumario_full$R6, sumario_full$R7, method="spearman")
+cor.test(sumario_full$R6, sumario_full$R8, method="spearman")
+
+cor.test(sumario_full$R7, sumario_full$R8, method="spearman")
+
 write.csv(sumario_full, file = "/home/taciano/dev/workspace/designtestminer/datasets/analysis/sumario_full.csv", row.names=TRUE)
 
 #Agregados do Sumário - Amostra Randômica e Amostra Estrelada

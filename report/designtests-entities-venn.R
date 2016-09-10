@@ -65,6 +65,20 @@ d[is.na(d)] <- 0
 d = merge(d, fails_entities_R8, all.x=TRUE, incomparables = NULL)
 d[is.na(d)] <- 0
 
+cor.test(d$R2, d$R4, method="spearman")
+cor.test(d$R2, d$R6, method="spearman")
+cor.test(d$R2, d$R7, method="spearman")
+cor.test(d$R2, d$R8, method="spearman")
+
+cor.test(d$R4, d$R6, method="spearman")
+cor.test(d$R4, d$R7, method="spearman")
+cor.test(d$R4, d$R8, method="spearman")
+
+cor.test(d$R6, d$R7, method="spearman")
+cor.test(d$R6, d$R8, method="spearman")
+
+cor.test(d$R7, d$R8, method="spearman")
+
 # Criando os subconjuntos de projetos que falharam em determinada regra.
 subsetR1 <- subset(d, d$R1 > 0)
 subsetR2 <- subset(d, d$R2 > 0)
