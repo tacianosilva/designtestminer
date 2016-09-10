@@ -1,7 +1,5 @@
-#Script R para gerar os Dados agragados sobre as Entidades Persistentes
-
-results = read.csv('/home/taciano/dev/workspace/designtestminer/datasets/results/tests_results_sample.txt')
-results_star = read.csv('/home/taciano/dev/workspace/designtestminer/datasets/results/tests_results_starred.txt')
+# Carregar os resultados (results_random, results_starry, results_full)
+source("designtests-results.R")
 
 #Resultados por Entidade Persistente
 
@@ -12,6 +10,8 @@ results_entities_random = aggregate(results$project, list(resultado = results$re
 
 #Agregar os resultados por Entidade
 entitiesByProj_random = aggregate(results$class, list(resultado = results$project), FUN = function(x) length(unique(x)))
+
+entitiesByProj_full = aggregate(results_full$class, list(resultado = results_full$class), FUN = function(x) length(unique(x)))
 
 #Média de Entidades Persistentes por Projeto
 soma_random_1 = sum(entitiesByProj_random$x)

@@ -1,7 +1,5 @@
-#Script R para gerar os Dados agragados
-
-results_random = read.csv('/local_home/tacianosilva/workspace/designtestminer/datasets/results/tests_results_sample.txt')
-results_star = read.csv('/local_home/tacianosilva/workspace/designtestminer/datasets/results/tests_results_starred.txt')
+# Carregar os resultados (results_random, results_starry, results_full)
+source("designtests-results.R")
 
 # Número de testes por Projeto
 testsByProj_random = aggregate(results_random$class, list(projeto = results_random$project), length)
@@ -251,3 +249,4 @@ xfit<-seq(min(x),max(x),length=40)
 yfit<-dnorm(xfit,mean=mean(x),sd=sd(x))
 yfit <- yfit*diff(h$mids[1:2])*length(x)
 lines(xfit, yfit, col="blue", lwd=2) 
+
