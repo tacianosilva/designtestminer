@@ -75,7 +75,7 @@ amostra1["proporcao"] <- results_proj_falhou["proporcao"]
 amostra1["tipo"] <- "random"
 
 amostra2["proporcao"] <- results_star_proj_falhou["proporcao"]
-amostra2["tipo"] <- "stared"
+amostra2["tipo"] <- "starred"
 
 falhas <- rbind(amostra1, amostra2)
 
@@ -87,6 +87,8 @@ levene.test(falhas$proporcao, falhas$tipo)
 # Testes de Normalidade
 shapiro.test(amostra1$proporcao)
 shapiro.test(amostra2$proporcao)
+
+shapiro.test(falhas$proporcao)
 
 # Teste da Igualdade das médias
 t.test(falhas$proporcao ~ falhas$tipo, paired=FALSE, var.equal=TRUE)
