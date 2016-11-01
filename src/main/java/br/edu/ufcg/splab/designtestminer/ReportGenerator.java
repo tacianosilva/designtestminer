@@ -8,13 +8,14 @@ import java.io.PrintWriter;
 import java.util.List;
 import java.util.Set;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.designwizard.design.ClassNode;
 import org.designwizard.exception.InexistentEntityException;
 
 public class ReportGenerator {
 
-    private static Logger logger = Logger.getLogger(ReportGenerator.class);
+    private static Logger logger = LogManager.getLogger(ReportGenerator.class);
 
     private ReportGenerator() {
     }
