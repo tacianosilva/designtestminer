@@ -98,21 +98,21 @@ sumario_random[is.na(sumario_random)] <- 0
 write.csv(sumario_random, file = "/local_home/tacianosilva/workspace/designtestminer/datasets/analysis/sumario_random.csv", row.names=TRUE)
 
 # Amostra de Projetos Estrelados
-results_star_projects = aggregate(results_star$project, list(resultado = results_star$result, projeto = results_star$project), length)
+results_star_projects = aggregate(results_starry$project, list(resultado = results_starry$result, projeto = results_starry$project), length)
 
 # Número de testes por Projeto
-testsByProj_star = aggregate(results_star$class, list(projeto = results_star$project), length)
+testsByProj_star = aggregate(results_starry$class, list(projeto = results_starry$project), length)
 
 # Número de testes que falharam
-results_projects_star = aggregate(results_star$project, list(projeto = results_star$project, resultado = results_star$result), length)
+results_projects_star = aggregate(results_starry$project, list(projeto = results_starry$project, resultado = results_starry$result), length)
 testsFail_star <- results_projects_star[which(results_projects_star$resultado == 'false'),]
 testsFail_star["resultado"] <- NULL
 
 #Agregar os resultados por Entidade - Número de Entidades por Projeto
-entitiesByProj_star = aggregate(results_star$class, list(projeto = results_star$project), FUN = function(x) length(unique(x)))
+entitiesByProj_star = aggregate(results_starry$class, list(projeto = results_starry$project), FUN = function(x) length(unique(x)))
 
 # Número de entidades que falharam
-falhas_star <- results_star[which(results_star$result == 'false'),]
+falhas_star <- results_starry[which(results_starry$result == 'false'),]
 entitiesFail_star = aggregate(falhas_star$class, list(projeto = falhas_star$project), FUN = function(x) length(unique(x)))
 
 # Número de regras que falharam

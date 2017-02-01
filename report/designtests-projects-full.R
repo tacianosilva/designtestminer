@@ -127,12 +127,13 @@ agregados["entities fail proportion"] <- c(valor1,
 agregados["numTests"] <- c(sum(sumario_full$numTests), mean(sumario_full$numTests), median(sumario_full$numTests))
 agregados["failTests"] <- c(sum(sumario_full$failTests), mean(sumario_full$failTests), median(sumario_full$failTests))
 
-valor3 = sum(sumario_full$failTests) / sum(sumario_full$numTests)
+valor2 = sum(sumario_full$failTests) / sum(sumario_full$numTests)
 
-agregados["tests fail proportion"] <- c(valor3, 
-                                        mean(sumario_full$`tests fail proportion`), median(sumario_full$numEntities))
+agregados["tests fail proportion"] <- c(valor2, 
+                                        mean(sumario_full$`tests fail proportion`), median(sumario_full$`tests fail proportion`))
 
 agregados["failRules"] <- c(sum(sumario_full$failRules), mean(sumario_full$failRules), median(sumario_full$failRules))
 
-agregados["rules fail proportion"] <- c(sum(sumario_full$failRules) / (40 * 8), 
+agregados["rules fail proportion"] <- c(sum(sumario_full$failRules) / (77 * 8), 
                                         mean(sumario_full$`rules fail proportion`), median(sumario_full$`rules fail proportion`))
+
