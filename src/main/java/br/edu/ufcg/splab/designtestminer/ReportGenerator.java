@@ -23,9 +23,9 @@ public class ReportGenerator {
     public static void main(String[] args) throws IOException, ClassNotFoundException, InexistentEntityException {
         logger.info("Start Main - Gerando Relatórios de Conformidade Arquitetural");
 
-        generateReportRandomSample();
-        generateReportStaredSample();
-        //generateReportEpol();
+        //generateReportRandomSample();
+        //generateReportStaredSample();
+        generateReportEpol();
     }
 
     public static void generateReportRandomSample() {
@@ -45,9 +45,9 @@ public class ReportGenerator {
     }
 
     public static void generateReportEpol() {
-        String fileName = "scripts/epol_versions.txt";
-        String fileResults = "scripts/tests_results_epol.txt";
-        String infoResults = "scripts/tests_info_epol.txt";
+        String fileName = "datasets/input/epol_version_8702.txt";
+        String fileResults = "datasets/results/tests_results_epol.txt";
+        String infoResults = "datasets/results/tests_info_epol.txt";
 
         processarArquivo(fileName, fileResults, infoResults);
     }
@@ -95,14 +95,17 @@ public class ReportGenerator {
     public static void processarProjeto(String projeto, PrintWriter resultsWriter, PrintWriter infoWriter) {
         String[] split = projeto.split("/");
         //String gitUser = split[0];
-        String projectName = split[1];
-        String reposDir = "/home/taciano/dev/repos/";
+        //String projectName = split[1];
+        String projectName = projeto;
+        String reposDir = "/local_home/tacianosilva/workspace/";
+        //String reposDir = "/home/taciano/dev/repos/";
         String classDir = getClassesDirectory(projeto);
 
         String projectDir = reposDir + projeto + classDir;
 
         try {
             logger.info("Diretório do Projeto: " + projectDir);
+            logger.info("Diretório do Usuário: " + System.getProperty("user.dir"));
             DesignWizardDecorator dwd = new DesignWizardDecorator(projectDir, projectName);
             RulesVerifier verifier = new RulesVerifier(dwd);
 

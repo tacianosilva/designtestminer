@@ -1,6 +1,7 @@
 package br.edu.ufcg.splab.designtestminer;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
@@ -25,6 +26,7 @@ public class RulesVerifier {
 
     public RulesVerifier(DesignWizardDecorator dwd) {
         this.dwd = dwd;
+        this.failClasses = new HashSet<>();
     }
 
     public RuleResult checkRule(AbstractDesignRule rule, ClassNode classNode) {
