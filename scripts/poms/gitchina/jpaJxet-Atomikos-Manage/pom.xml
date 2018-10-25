@@ -18,7 +18,7 @@
         <springside.version>3.3.4.1</springside.version>
         <spring.version>3.0.4.RELEASE</spring.version>
         <hibernate.version>3.5.5-Final</hibernate.version>
-        <struts2.version>2.2.1</struts2.version>
+        <struts2.version>2.3.34</struts2.version>
         <cxf.version>2.2.10</cxf.version>
         <jersey.version>1.3</jersey.version>
         <spring-security.version>3.0.3.RELEASE</spring-security.version>
