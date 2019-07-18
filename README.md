@@ -4,7 +4,7 @@ This project contains experiments with design tests using DesignWizard API. This
 
 Our main objective is demonstrating the possibilities of the DesignWizard tool for the verification of architectural rules.
 
-So, we have written design tests for domain model rules (design rules for persistent classes) that are described on documentation of the Hibernate Framework (See in https://docs.jboss.org/hibernate/orm/5.0/userGuide/en-US/html/ch02.html) and on the JPA Specification. The rules used in the articles are general and must be followed by all the projects.
+So, we have written design tests for domain model rules (design rules for persistent classes) that are described on documentation of the Hibernate Framework and on the JPA Specification. The rules used in the articles are general and must be followed by all the projects.
 
 This set of Hibernate architectural rules is described in the documentation for all versions of the framework, including the latest new releases. Below is the documentation section where the rules are described.
 
