@@ -26,7 +26,7 @@
         <jetty.version>6.1.25</jetty.version>
         <h2.version>1.2.142</h2.version>
         <quartz.version>1.8.4</quartz.version>
-        <jackson.version>1.6.0</jackson.version>
+        <jackson.version>1.9.13</jackson.version>
         <slf4j.version>1.6.1</slf4j.version>
         <selenium.version>2.0a5</selenium.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
