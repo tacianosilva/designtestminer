@@ -321,7 +321,7 @@
             <artifactId>junit</artifactId>
             <type>jar</type>
             <scope>test</scope>
-            <version>4.8.2</version>
+            <version>4.13.1</version>
         </dependency>
         <dependency>
             <groupId>org.dbunit</groupId>
