@@ -24,7 +24,7 @@
         <spring-security.version>3.0.3.RELEASE</spring-security.version>
         <activemq.version>5.4.0</activemq.version>
         <jetty.version>6.1.25</jetty.version>
-        <h2.version>1.2.142</h2.version>
+        <h2.version>2.0.206</h2.version>
         <quartz.version>1.8.4</quartz.version>
         <jackson.version>1.9.13</jackson.version>
         <slf4j.version>1.6.1</slf4j.version>
