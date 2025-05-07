@@ -16,7 +16,7 @@
         <jdbc.driver.artifactId>mysql-connector-java</jdbc.driver.artifactId>
         <jdbc.driver.version>8.0.28</jdbc.driver.version>
         <springside.version>3.3.4.1</springside.version>
-        <spring.version>3.0.4.RELEASE</spring.version>
+        <spring.version>6.1.14</spring.version>
         <hibernate.version>5.4.24.Final</hibernate.version>
         <struts2.version>2.3.34</struts2.version>
         <cxf.version>2.2.10</cxf.version>
